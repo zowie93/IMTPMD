@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">IMTPMD-Stoplicht</string>
+    <string name="app_name">IMTPMD Stoplicht</string>
+    <string name="studentnummer">Studentnummer</string>
+    <string name="labelstudentnummer">Vul hier je studentnummer in</string>
+    <string name="btn_inloggen">Inloggen</string>
 </resources>
