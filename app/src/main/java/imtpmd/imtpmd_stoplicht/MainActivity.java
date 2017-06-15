@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle = setupDrawerToggle();
 
         mDrawer.addDrawerListener(drawerToggle);
+
+        nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        setupDrawerContent(nvDrawer);
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
