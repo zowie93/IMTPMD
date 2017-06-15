@@ -3,4 +3,17 @@
     <string name="studentnummer">Studentnummer</string>
     <string name="labelstudentnummer">Vul hier je studentnummer in</string>
     <string name="btn_inloggen">Inloggen</string>
+
+    <!-- Global -->
+    <string name="zowie_van_geest_name">Zowie van Geest</string>
+    <string name="zowie_van_geest_studentnumber">s1097398</string>
+    <string name="zowie_van_geest_website">www.zowievangeest.nl</string>
+    <string name="maarten_paauw_name">Maarten Paauw</string>
+    <string name="maarten_paauw_studentnumber">s1094220</string>
+    <string name="maartenpaauw_website">www.maartenpaauw.com</string>
+
+    <!-- Credits -->
+    <string name="credits_about">Met deze applicatie kunnen gebruikers een bijeenkomst evalueren door middel van de stoplicht methode. De gebruiker kan inloggen met zijn of haar studentnummer. Na het inloggen is een overzicht te zien met alle bijeenkomsten. De gebruiker kan ook een bijeenkomst aanmaken. Ook kan de gebruiker een beoordeling achterlaten bij een bijeenkomst. Alle resultaten zijn ook in te zien.</string>
+    <string name="credits_copyright">&#169; 2017 Picobello B.V.</string>
+
 </resources>
