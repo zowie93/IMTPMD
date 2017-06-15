@@ -60,8 +60,8 @@
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/zowie_van_geest_website"
-            android:textColor="@color/colorPrimary" />
+            android:autoLink="web"
+            android:text="@string/zowie_van_geest_website" />
 
 
         <Space
@@ -89,6 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/maartenpaauw_website"
+            android:autoLink="web"
             android:textColor="@color/colorPrimary" />
 
         <Space
