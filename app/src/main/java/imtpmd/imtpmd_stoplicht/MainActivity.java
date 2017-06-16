@@ -66,13 +66,13 @@ public class MainActivity extends AppCompatActivity implements MeetingsDetailFra
 
         Class fragmentClass;
         switch(menuItem.getItemId()) {
-            case R.id.nav_first_fragment:
+            case R.id.nav_meetings_fragment:
                 fragmentClass = MeetingsFragment.class;
                 break;
-            case R.id.nav_second_fragment:
+            case R.id.nav_results_fragment:
                 fragmentClass = ResultsFragment.class;
                 break;
-            case R.id.nav_third_fragment:
+            case R.id.nav_credits_fragment:
                 fragmentClass = CreditsFragment.class;
                 break;
             default:

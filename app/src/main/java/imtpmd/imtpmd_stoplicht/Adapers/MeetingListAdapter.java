@@ -52,13 +52,14 @@ public class MeetingListAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(this.context).inflate(R.layout.list_item, parent, false);
         }
 
-
         Meeting meeting = (Meeting) this.getItem(position);
 
+        TextView meeting_user_number = (TextView) convertView.findViewById(R.id.meeting_user_number);
         TextView meeting_name        = (TextView) convertView.findViewById(R.id.meeting_name);
         TextView meeting_description = (TextView) convertView.findViewById(R.id.meeting_description);
         TextView meeting_time        = (TextView) convertView.findViewById(R.id.meeting_time);
 
+        meeting_user_number.setText(meeting.getUser().getNumber());
         meeting_name.setText(meeting.getName());
         meeting_description.setText(meeting.getDescription());
         meeting_time.setText(meeting.getStarting_at().toString());

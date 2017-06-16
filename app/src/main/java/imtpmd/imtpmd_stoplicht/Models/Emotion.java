@@ -1,8 +1,9 @@
 package imtpmd.imtpmd_stoplicht.Models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Emotion {
+public class Emotion implements Serializable {
 
     private int    id;
     private String name;

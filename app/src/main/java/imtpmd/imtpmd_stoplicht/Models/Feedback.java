@@ -1,21 +1,22 @@
 package imtpmd.imtpmd_stoplicht.Models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Feedback {
-    private int    id;
-    private int    emotion_id;
-    private int    meeting_id;
-    private int    user_id;
-    private String description;
-    private Date   created_at;
-    private Date   updated_at;
+public class Feedback implements Serializable {
+    private int     id;
+    private Emotion emotion;
+    private Meeting meeting;
+    private User    user;
+    private String  description;
+    private Date    created_at;
+    private Date    updated_at;
 
-    public Feedback(int id, int emotion_id, int meeting_id, int user_id, String description, Date created_at, Date updated_at) {
+    public Feedback(int id, Emotion emotion, Meeting meeting, User user, String description, Date created_at, Date updated_at) {
         this.id = id;
-        this.emotion_id = emotion_id;
-        this.meeting_id = meeting_id;
-        this.user_id = user_id;
+        this.emotion = emotion;
+        this.meeting = meeting;
+        this.user = user;
         this.description = description;
         this.created_at = created_at;
         this.updated_at = updated_at;
@@ -29,28 +30,28 @@ public class Feedback {
         this.id = id;
     }
 
-    public int getEmotion_id() {
-        return emotion_id;
+    public Emotion getEmotion() {
+        return emotion;
     }
 
-    public void setEmotion_id(int emotion_id) {
-        this.emotion_id = emotion_id;
+    public void setEmotion(Emotion emotion) {
+        this.emotion = emotion;
     }
 
-    public int getMeeting_id() {
-        return meeting_id;
+    public Meeting getMeeting() {
+        return meeting;
     }
 
-    public void setMeeting_id(int meeting_id) {
-        this.meeting_id = meeting_id;
+    public void setMeeting(Meeting meeting) {
+        this.meeting = meeting;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getDescription() {
