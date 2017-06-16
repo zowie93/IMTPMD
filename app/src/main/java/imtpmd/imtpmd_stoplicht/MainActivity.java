@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = ResultsFragment.class;
                 break;
             case R.id.nav_third_fragment:
-                fragmentClass = CreditFragment.class;
+                fragmentClass = CreditsFragment.class;
                 break;
             default:
                 fragmentClass = MeetingsFragment.class;
