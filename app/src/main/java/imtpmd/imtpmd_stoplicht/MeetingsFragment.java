@@ -93,28 +93,6 @@ public class MeetingsFragment extends Fragment {
         ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);
         meetingsListView.setAdapter(adapter);
 
-//        ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);
-//
-//        BaseAdapter listViewAdapter = new ArrayAdapter<Meeting>(getActivity(),android.R.layout.simple_list_item_2, android.R.id.text1, meetings) {
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//
-//                View view = super.getView(position, convertView, parent);
-//
-//                Meeting meeting = meetings.get(position);
-//                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-//                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-//
-//                text1.setText(meeting.getName());
-//                text2.setText(meeting.getDescription());
-//
-//                return view;
-//
-//            }
-//        };
-//
-//        meetingsListView.setAdapter(listViewAdapter);
-
         return view;
     }
 
