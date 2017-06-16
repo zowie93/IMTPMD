@@ -1,13 +1,25 @@
 package imtpmd.imtpmd_stoplicht;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
+import imtpmd.imtpmd_stoplicht.Models.Meeting;
 
 
 /**
@@ -69,18 +81,39 @@ public class MeetingsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_meetings, container, false);
 
-        // Inflate the layout for this fragment
-        String[] bijeenkomsten = {
-                "IPMEDT2",
-                "IPMEDT3",
-                "IPMEDT4"
-        };
+        final ArrayList<Meeting> meetings = new ArrayList<Meeting>();
 
-        ListView bijeenkomstenListView = (ListView) view.findViewById(R.id.bijeenkomstListView);
+        // TODO get from API.
+        meetings.add(new Meeting(1, 1, "Bijeenkomst 1", "Omschrijving bijeenkomst 1", new Date(), new Date(), new Date(), new Date()));
+        meetings.add(new Meeting(2, 2, "Bijeenkomst 2", "Omschrijving bijeenkomst 2", new Date(), new Date(), new Date(), new Date()));
+        meetings.add(new Meeting(3, 3, "Bijeenkomst 3", "Omschrijving bijeenkomst 3", new Date(), new Date(), new Date(), new Date()));
+        meetings.add(new Meeting(4, 4, "Bijeenkomst 4", "Omschrijving bijeenkomst 4", new Date(), new Date(), new Date(), new Date()));
 
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, bijeenkomsten);
+        MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), meetings);
+        ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);
+        meetingsListView.setAdapter(adapter);
 
-        bijeenkomstenListView.setAdapter(listViewAdapter);
+//        ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);
+//
+//        BaseAdapter listViewAdapter = new ArrayAdapter<Meeting>(getActivity(),android.R.layout.simple_list_item_2, android.R.id.text1, meetings) {
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//
+//                View view = super.getView(position, convertView, parent);
+//
+//                Meeting meeting = meetings.get(position);
+//                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+//                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+//
+//                text1.setText(meeting.getName());
+//                text2.setText(meeting.getDescription());
+//
+//                return view;
+//
+//            }
+//        };
+//
+//        meetingsListView.setAdapter(listViewAdapter);
 
         return view;
     }
