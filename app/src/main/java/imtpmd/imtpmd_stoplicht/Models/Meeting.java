@@ -1,40 +1,27 @@
-package imtpmd.imtpmd_stoplicht;
+package imtpmd.imtpmd_stoplicht.Models;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * Created by zowie on 16/06/2017.
- */
-
-public class Bijeenkomst {
-    private int id;
-    private User user;
+public class Meeting {
+    private int    id;
+    private int    user_id;
     private String name;
     private String description;
-    private Date starting_at;
-    private Date ending_at;
-    private Date created_at;
-    private Date updated_at;
+    private Date   starting_at;
+    private Date   ending_at;
+    private Date   created_at;
+    private Date   updated_at;
 
-
-    public Bijeenkomst(int id, User user, String name, String description, Date starting_at, Date ending_at, Date created_at, Date updated_at) {
+    public Meeting(int id, int user_id, String name, String description, Date starting_at, Date ending_at, Date created_at, Date updated_at) {
         this.id = id;
-        this.user = user;
+        this.user_id = user_id;
         this.name = name;
         this.description = description;
         this.starting_at = starting_at;
         this.ending_at = ending_at;
         this.created_at = created_at;
         this.updated_at = updated_at;
-    }
-
-    public static ArrayList<Bijeenkomst> getBijeenkomsten() {
-        ArrayList<Bijeenkomst> bijeenkomsten = new ArrayList<Bijeenkomst>();
-        bijeenkomsten.add(new Bijeenkomst(1, new User("s1097398"), "Bisque", "Vel quisquam fuga quia.", new Date(), new Date(), new Date(), new Date()));
-        bijeenkomsten.add(new Bijeenkomst(2, new User("s1094420"), "Lorem", "Tel madre el pa vore.", new Date(), new Date(), new Date(), new Date()));
-        bijeenkomsten.add(new Bijeenkomst(3, new User("s1097340"), "Prume", "For favor Per Tamore.", new Date(), new Date(), new Date(), new Date()));
-        return bijeenkomsten;
     }
 
     public int getId() {
@@ -45,12 +32,12 @@ public class Bijeenkomst {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getName() {
