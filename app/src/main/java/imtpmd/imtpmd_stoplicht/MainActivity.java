@@ -66,16 +66,16 @@ public class MainActivity extends AppCompatActivity {
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.nav_first_fragment:
-                fragmentClass = FirstFragment.class;
+                fragmentClass = MeetingsFragment.class;
                 break;
             case R.id.nav_second_fragment:
-                fragmentClass = SecondFragment.class;
+                fragmentClass = ResultsFragment.class;
                 break;
             case R.id.nav_third_fragment:
-                fragmentClass = ThirdFragment.class;
+                fragmentClass = CreditFragment.class;
                 break;
             default:
-                fragmentClass = FirstFragment.class;
+                fragmentClass = MeetingsFragment.class;
         }
 
         try {

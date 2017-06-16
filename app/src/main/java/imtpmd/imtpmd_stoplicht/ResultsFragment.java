@@ -1,6 +1,5 @@
 package imtpmd.imtpmd_stoplicht;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,12 +11,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ThirdFragment.OnFragmentInteractionListener} interface
+ * {@link ResultsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ThirdFragment#newInstance} factory method to
+ * Use the {@link ResultsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ThirdFragment extends Fragment {
+public class ResultsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +28,7 @@ public class ThirdFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ThirdFragment() {
+    public ResultsFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +38,11 @@ public class ThirdFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ThirdFragment.
+     * @return A new instance of fragment ResultsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ThirdFragment newInstance(String param1, String param2) {
-        ThirdFragment fragment = new ThirdFragment();
+    public static ResultsFragment newInstance(String param1, String param2) {
+        ResultsFragment fragment = new ResultsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,7 +63,7 @@ public class ThirdFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_third, container, false);
+        return inflater.inflate(R.layout.fragment_second, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -73,7 +72,6 @@ public class ThirdFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
     @Override
     public void onDetach() {
