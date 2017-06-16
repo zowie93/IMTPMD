@@ -4,35 +4,20 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Date;
-
-import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
-import imtpmd.imtpmd_stoplicht.Models.Meeting;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MeetingsFragment.OnFragmentInteractionListener} interface
+ * {@link MeetingsDetailFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MeetingsFragment#newInstance} factory method to
+ * Use the {@link MeetingsDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MeetingsFragment extends Fragment {
+public class MeetingsDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,7 +29,7 @@ public class MeetingsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public MeetingsFragment() {
+    public MeetingsDetailFragment() {
         // Required empty public constructor
     }
 
@@ -54,11 +39,11 @@ public class MeetingsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MeetingsFragment.
+     * @return A new instance of fragment MeetingsDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MeetingsFragment newInstance(String param1, String param2) {
-        MeetingsFragment fragment = new MeetingsFragment();
+    public static MeetingsDetailFragment newInstance(String param1, String param2) {
+        MeetingsDetailFragment fragment = new MeetingsDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,47 +61,27 @@ public class MeetingsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-        View view = inflater.inflate(R.layout.fragment_meetings, container, false);
-
-        final ArrayList<Meeting> meetings = new ArrayList<Meeting>();
-
-        // TODO get from API.
-        meetings.add(new Meeting(1, 1, "Bijeenkomst 1", "Omschrijving bijeenkomst 1", new Date(), new Date(), new Date(), new Date()));
-        meetings.add(new Meeting(2, 2, "Bijeenkomst 2", "Omschrijving bijeenkomst 2", new Date(), new Date(), new Date(), new Date()));
-        meetings.add(new Meeting(3, 3, "Bijeenkomst 3", "Omschrijving bijeenkomst 3", new Date(), new Date(), new Date(), new Date()));
-        meetings.add(new Meeting(4, 4, "Bijeenkomst 4", "Omschrijving bijeenkomst 4", new Date(), new Date(), new Date(), new Date()));
-
-        MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), meetings);
-        ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);
-
-        meetingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("Data", "Clicked");
-                Fragment detailsFragment = new MeetingsDetailFragment();
-                Bundle bundle = new Bundle();
-
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.flContent, detailsFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
-        meetingsListView.setAdapter(adapter);
-
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_meetings_detail, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
