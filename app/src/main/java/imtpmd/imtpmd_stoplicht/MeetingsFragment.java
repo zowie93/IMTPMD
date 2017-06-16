@@ -16,10 +16,11 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
+import imtpmd.imtpmd_stoplicht.Models.Date;
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
+import imtpmd.imtpmd_stoplicht.Models.User;
 
 
 /**
@@ -84,10 +85,10 @@ public class MeetingsFragment extends Fragment {
         final ArrayList<Meeting> meetings = new ArrayList<Meeting>();
 
         // TODO get from API.
-        meetings.add(new Meeting(1, 1, "Bijeenkomst 1", "Omschrijving bijeenkomst 1", new Date(), new Date(), new Date(), new Date()));
-        meetings.add(new Meeting(2, 2, "Bijeenkomst 2", "Omschrijving bijeenkomst 2", new Date(), new Date(), new Date(), new Date()));
-        meetings.add(new Meeting(3, 3, "Bijeenkomst 3", "Omschrijving bijeenkomst 3", new Date(), new Date(), new Date(), new Date()));
-        meetings.add(new Meeting(4, 4, "Bijeenkomst 4", "Omschrijving bijeenkomst 4", new Date(), new Date(), new Date(), new Date()));
+        meetings.add(new Meeting(1, new User(1, "s1094220", new Date(new java.util.Date()), new Date(new java.util.Date())), "Bijeenkomst 1", "Omschrijving bijeenkomst 1", new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date())));
+        meetings.add(new Meeting(2, new User(1, "s1094220", new Date(new java.util.Date()), new Date(new java.util.Date())), "Bijeenkomst 2", "Omschrijving bijeenkomst 2", new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date())));
+        meetings.add(new Meeting(3, new User(1, "s1094220", new Date(new java.util.Date()), new Date(new java.util.Date())), "Bijeenkomst 3", "Omschrijving bijeenkomst 3", new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date())));
+        meetings.add(new Meeting(4, new User(1, "s1094220", new Date(new java.util.Date()), new Date(new java.util.Date())), "Bijeenkomst 4", "Omschrijving bijeenkomst 4", new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date())));
 
         MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), meetings);
         ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);

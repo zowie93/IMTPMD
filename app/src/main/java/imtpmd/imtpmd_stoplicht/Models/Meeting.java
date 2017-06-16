@@ -1,21 +1,21 @@
 package imtpmd.imtpmd_stoplicht.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
-public class Meeting {
+public class Meeting implements Serializable {
     private int    id;
-    private int    user_id;
+    private User   user;
     private String name;
     private String description;
-    private Date   starting_at;
-    private Date   ending_at;
-    private Date   created_at;
-    private Date   updated_at;
+    private Date starting_at;
+    private Date ending_at;
+    private Date created_at;
+    private Date updated_at;
 
-    public Meeting(int id, int user_id, String name, String description, Date starting_at, Date ending_at, Date created_at, Date updated_at) {
+    public Meeting(int id, User user, String name, String description, Date starting_at, Date ending_at, Date created_at, Date updated_at) {
         this.id = id;
-        this.user_id = user_id;
+        this.user = user;
         this.name = name;
         this.description = description;
         this.starting_at = starting_at;
@@ -32,12 +32,12 @@ public class Meeting {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {
