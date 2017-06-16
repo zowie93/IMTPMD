@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements MeetingsDetailFragment.OnFragmentInteractionListener  {
+public class MainActivity extends AppCompatActivity implements MeetingReviewFragment.OnFragmentInteractionListener  {
 
     private DrawerLayout mDrawer;
     private Toolbar toolbar;

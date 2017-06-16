@@ -1,6 +1,6 @@
 package imtpmd.imtpmd_stoplicht;
 
-import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,12 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -99,11 +94,10 @@ public class MeetingsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("Data", "Clicked");
-                Fragment detailsFragment = new MeetingsDetailFragment();
-                Bundle bundle = new Bundle();
+                Fragment reviewFragment = new MeetingReviewFragment();
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.flContent, detailsFragment);
+                transaction.replace(R.id.flContent, reviewFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

@@ -1,7 +1,6 @@
 package imtpmd.imtpmd_stoplicht.Models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Meeting implements Serializable {
     private int    id;
