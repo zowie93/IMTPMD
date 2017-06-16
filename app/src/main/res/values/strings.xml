@@ -27,8 +27,8 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="menu_item_1">Menu item 1</string>
-    <string name="menu_item_2">Menu item 2</string>
-    <string name="menu_item_3">Menu item 3</string>
+    <string name="menu_item_1">Bijeenkomsten</string>
+    <string name="menu_item_2">Resultaten</string>
+    <string name="menu_item_3">Over deze applicatie</string>
     <string name="menu_header_text">IMTPMD</string>
 </resources>

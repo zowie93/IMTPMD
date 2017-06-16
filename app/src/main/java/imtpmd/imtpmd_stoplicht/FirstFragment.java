@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -63,8 +66,18 @@ public class FirstFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false);
+
+        ArrayList<Bijeenkomst> arrayOfBijeenkomsten = Bijeenkomst.getBijeenkomsten();
+
+        View rootView = inflater.inflate(R.layout.fragment_first, container, false);
+        BijeenkomstAdapter bijeenkomstListAdapter = new BijeenkomstAdapter(getActivity(), arrayOfBijeenkomsten);
+        ListView bijeenkomstListView = (ListView) rootView.findViewById(R.id.bijeenkomst_list);
+
+        bijeenkomstListView.setAdapter(bijeenkomstListAdapter);
+
+        return rootView;
+
+//        return inflater.inflate(R.layout.fragment_first, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -80,6 +93,8 @@ public class FirstFragment extends Fragment {
         mListener = null;
     }
 
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -94,4 +109,14 @@ public class FirstFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+//    private void populateBijeenkomstList() {
+//        // Construct the data source
+//        ArrayList<Bijeenkomst> arrayOfBijeenkomsten = Bijeenkomst.getBijeenkomsten();
+//        // Create the adapter to convert the array to views
+//        BijeenkomstAdapter adapter = new BijeenkomstAdapter(this.getActivity().getApplicationContext(), arrayOfBijeenkomsten);
+//        // Attach the adapter to a ListView
+//        ListView listView = (ListView) getActivity().findViewById(R.id.bijeenkomst_list);
+//        listView.setAdapter(adapter);
+//    }
 }
