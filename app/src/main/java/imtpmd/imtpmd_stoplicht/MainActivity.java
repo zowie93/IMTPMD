@@ -1,5 +1,8 @@
 package imtpmd.imtpmd_stoplicht;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements MeetingReviewFrag
 
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         setupDrawerContent(nvDrawer);
+
+        this.selectDrawerItem(nvDrawer.getMenu().findItem(R.id.nav_meetings_fragment));
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -75,6 +80,17 @@ public class MainActivity extends AppCompatActivity implements MeetingReviewFrag
             case R.id.nav_credits_fragment:
                 fragmentClass = CreditsFragment.class;
                 break;
+            case R.id.nav_logout:
+                SharedPreferences sharedPreferences = this.getSharedPreferences("imtpmd.imtpmd_stoplicht", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit().remove("studentnumber");
+                editor.commit();
+
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                startActivity(intent);
+
+                return;
             default:
                 fragmentClass = MeetingsFragment.class;
         }

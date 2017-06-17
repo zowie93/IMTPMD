@@ -1,7 +1,27 @@
 package imtpmd.imtpmd_stoplicht;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -9,5 +29,49 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        final TextView login_number = (TextView) findViewById(R.id.login_number);
+        Button   login_button = (Button) findViewById(R.id.login_button);
+
+        final SharedPreferences sharedPreferences = this.getSharedPreferences("imtpmd.imtpmd_stoplicht", Context.MODE_PRIVATE);
+
+        final String studentnumber = sharedPreferences.getString("studentnumber", null);
+
+        final Intent intent = new Intent(this, MainActivity.class);
+
+        if (studentnumber != null) {
+            startActivity(intent);
+        }
+
+        login_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                String login_number_new = login_number.getText().toString();
+
+
+                try {
+                    DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://188.226.134.236/api/user/login");
+                    List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+                    pairs.add(new BasicNameValuePair("number", login_number_new));
+                    httpPost.setEntity(new UrlEncodedFormEntity(pairs));
+                    HttpResponse httpResponse = defaultHttpClient.execute(httpPost);
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("studentnumber", login_number_new);
+                    editor.commit();
+
+                    startActivity(intent);
+                }
+
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

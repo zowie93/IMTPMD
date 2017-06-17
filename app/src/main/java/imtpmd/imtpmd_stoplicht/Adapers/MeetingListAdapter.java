@@ -10,14 +10,11 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
 import imtpmd.imtpmd_stoplicht.R;
-
-/**
- * Created by maartenpaauw on 16-06-17.
- */
 
 public class MeetingListAdapter extends BaseAdapter {
 
@@ -36,7 +33,7 @@ public class MeetingListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Meeting getItem(int position) {
         return this.meetings.get(position);
     }
 

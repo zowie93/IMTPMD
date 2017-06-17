@@ -67,6 +67,11 @@ public class MeetingReviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Bundle bundle = this.getArguments();
+        int meeting_id = bundle.getInt("meeting_id");
+
+        Log.d("Meeting id", Integer.toString(meeting_id));
+
         return inflater.inflate(R.layout.fragment_meeting_review, container, false);
     }
 

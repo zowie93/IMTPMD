@@ -1,8 +1,10 @@
 package imtpmd.imtpmd_stoplicht;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -12,7 +14,23 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
 import imtpmd.imtpmd_stoplicht.Models.Date;
@@ -81,29 +99,55 @@ public class MeetingsFragment extends Fragment {
 
         final ArrayList<Meeting> meetings = new ArrayList<Meeting>();
 
-        // TODO get from API.
-        meetings.add(new Meeting(1, new User(1, "s1094220", new Date(new java.util.Date()), new Date(new java.util.Date())), "Bijeenkomst 1", "Omschrijving bijeenkomst 1", new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date())));
-        meetings.add(new Meeting(2, new User(1, "s1094220", new Date(new java.util.Date()), new Date(new java.util.Date())), "Bijeenkomst 2", "Omschrijving bijeenkomst 2", new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date())));
-        meetings.add(new Meeting(3, new User(1, "s1094220", new Date(new java.util.Date()), new Date(new java.util.Date())), "Bijeenkomst 3", "Omschrijving bijeenkomst 3", new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date())));
-        meetings.add(new Meeting(4, new User(1, "s1094220", new Date(new java.util.Date()), new Date(new java.util.Date())), "Bijeenkomst 4", "Omschrijving bijeenkomst 4", new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date()), new Date(new java.util.Date())));
 
-        MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), meetings);
-        ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);
+        try {
+            DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet("http://188.226.134.236/api/meeting");
+            HttpResponse httpResponse = defaultHttpClient.execute(httpGet);
 
-        meetingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("Data", "Clicked");
-                Fragment reviewFragment = new MeetingReviewFragment();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+            String json = reader.readLine();
+            JSONArray jsonArray = new JSONArray(json);
 
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.flContent, reviewFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject meeting = jsonArray.getJSONObject(i);
+                JSONObject user = meeting.getJSONObject("user");
+
+                meetings.add(new Meeting(
+                    meeting.getInt("id"),
+                    new User(
+                        user.getInt("id"),
+                        user.getString("number")
+                    ),
+                    meeting.getString("name"),
+                    meeting.getString("description"),
+                    new Date(meeting.getString("starting_at")),
+                    new Date(meeting.getString("ending_at"))
+                ));
             }
-        });
 
-        meetingsListView.setAdapter(adapter);
+            final MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), meetings);
+            ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);
+
+            meetingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Fragment reviewFragment = new MeetingReviewFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("meeting_id", adapter.getItem(position).getId());
+                    reviewFragment.setArguments(bundle);
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.flContent, reviewFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            });
+
+            meetingsListView.setAdapter(adapter);
+        }
+
+        catch (Exception e) { e.printStackTrace(); }
 
         return view;
     }

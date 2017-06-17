@@ -7,20 +7,16 @@ public class Meeting implements Serializable {
     private User   user;
     private String name;
     private String description;
-    private Date starting_at;
-    private Date ending_at;
-    private Date created_at;
-    private Date updated_at;
+    private Date   starting_at;
+    private Date   ending_at;
 
-    public Meeting(int id, User user, String name, String description, Date starting_at, Date ending_at, Date created_at, Date updated_at) {
+    public Meeting(int id, User user, String name, String description, Date starting_at, Date ending_at) {
         this.id = id;
         this.user = user;
         this.name = name;
         this.description = description;
         this.starting_at = starting_at;
         this.ending_at = ending_at;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
     public int getId() {
@@ -69,22 +65,6 @@ public class Meeting implements Serializable {
 
     public void setEnding_at(Date ending_at) {
         this.ending_at = ending_at;
-    }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
-    public Date getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
     }
 
     @Override
