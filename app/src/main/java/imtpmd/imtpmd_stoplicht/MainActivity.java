@@ -14,12 +14,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements MeetingReviewFragment.OnFragmentInteractionListener  {
 
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
+    private SharedPreferences sharedPreferences;
 
     private ActionBarDrawerToggle drawerToggle;
 
@@ -27,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements MeetingReviewFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.sharedPreferences = this.getSharedPreferences("imtpmd.imtpmd_stoplicht", Context.MODE_PRIVATE);
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements MeetingReviewFrag
         setupDrawerContent(nvDrawer);
 
         this.selectDrawerItem(nvDrawer.getMenu().findItem(R.id.nav_meetings_fragment));
+
+        TextView menu = (TextView) nvDrawer.getHeaderView(0).findViewById(R.id.menu_studentnumber);
+        menu.setText(sharedPreferences.getString("studentnumber", "Freek Vonk"));
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -81,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements MeetingReviewFrag
                 fragmentClass = CreditsFragment.class;
                 break;
             case R.id.nav_logout:
-                SharedPreferences sharedPreferences = this.getSharedPreferences("imtpmd.imtpmd_stoplicht", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit().remove("studentnumber");
+                SharedPreferences.Editor editor = this.sharedPreferences.edit().remove("studentnumber");
                 editor.commit();
 
                 Intent intent = new Intent(this, LoginActivity.class);

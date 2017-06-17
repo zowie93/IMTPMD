@@ -3,9 +3,27 @@ package imtpmd.imtpmd_stoplicht;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
+import imtpmd.imtpmd_stoplicht.Models.Date;
+import imtpmd.imtpmd_stoplicht.Models.Meeting;
+import imtpmd.imtpmd_stoplicht.Models.User;
 
 
 /**
@@ -63,7 +81,61 @@ public class ResultsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_results, container, false);
+        View view = inflater.inflate(R.layout.fragment_results, container, false);
+
+        final ArrayList<Meeting> meetings = new ArrayList<Meeting>();
+
+
+        try {
+            DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet("http://188.226.134.236/api/meeting");
+            HttpResponse httpResponse = defaultHttpClient.execute(httpGet);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+            String json = reader.readLine();
+            JSONArray jsonArray = new JSONArray(json);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject meeting = jsonArray.getJSONObject(i);
+                JSONObject user = meeting.getJSONObject("user");
+
+                meetings.add(new Meeting(
+                        meeting.getInt("id"),
+                        new User(
+                                user.getInt("id"),
+                                user.getString("number")
+                        ),
+                        meeting.getString("name"),
+                        meeting.getString("description"),
+                        new Date(meeting.getString("starting_at")),
+                        new Date(meeting.getString("ending_at"))
+                ));
+            }
+
+            final MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), meetings);
+            ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);
+
+            meetingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Fragment reviewFragment = new MeetingReviewFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("meeting_id", adapter.getItem(position).getId());
+                    reviewFragment.setArguments(bundle);
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.flContent, reviewFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            });
+
+            meetingsListView.setAdapter(adapter);
+        }
+
+        catch (Exception e) { e.printStackTrace(); }
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
