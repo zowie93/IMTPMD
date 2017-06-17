@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import imtpmd.imtpmd_stoplicht.API.API;
 import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
 import imtpmd.imtpmd_stoplicht.Models.Date;
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
@@ -97,57 +98,27 @@ public class MeetingsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_meetings, container, false);
 
-        final ArrayList<Meeting> meetings = new ArrayList<Meeting>();
+        ArrayList<Meeting> meetings = API.getAllMeetings();
 
+        final MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), meetings);
+        ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);
 
-        try {
-            DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet("http://188.226.134.236/api/meeting");
-            HttpResponse httpResponse = defaultHttpClient.execute(httpGet);
+        meetingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Fragment reviewFragment = new MeetingReviewFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("meeting_id", adapter.getItem(position).getId());
+                reviewFragment.setArguments(bundle);
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
-            String json = reader.readLine();
-            JSONArray jsonArray = new JSONArray(json);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject meeting = jsonArray.getJSONObject(i);
-                JSONObject user = meeting.getJSONObject("user");
-
-                meetings.add(new Meeting(
-                    meeting.getInt("id"),
-                    new User(
-                        user.getInt("id"),
-                        user.getString("number")
-                    ),
-                    meeting.getString("name"),
-                    meeting.getString("description"),
-                    new Date(meeting.getString("starting_at")),
-                    new Date(meeting.getString("ending_at"))
-                ));
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.flContent, reviewFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
+        });
 
-            final MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), meetings);
-            ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);
-
-            meetingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Fragment reviewFragment = new MeetingReviewFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("meeting_id", adapter.getItem(position).getId());
-                    reviewFragment.setArguments(bundle);
-
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.flContent, reviewFragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                }
-            });
-
-            meetingsListView.setAdapter(adapter);
-        }
-
-        catch (Exception e) { e.printStackTrace(); }
+        meetingsListView.setAdapter(adapter);
 
         return view;
     }
