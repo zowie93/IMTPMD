@@ -147,14 +147,14 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/review_annuleren"
+                    android:id="@+id/annuleren"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/review_annuleren" />
 
                 <Button
-                    android:id="@+id/review_versturen"
+                    android:id="@+id/toevoegen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

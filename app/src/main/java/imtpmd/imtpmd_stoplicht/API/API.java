@@ -153,6 +153,9 @@ public class API {
     }
 
     public static void createNewMeeting(String number, String name, String description, String starting_at, String ending_at) {
+
+        Log.d("starting", starting_at);
+
         try {
             DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://188.226.134.236/api/meeting");
@@ -166,6 +169,8 @@ public class API {
             defaultHttpClient.execute(httpPost);
         }
 
-        catch (Exception e) {}
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
