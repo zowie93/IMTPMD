@@ -95,7 +95,7 @@ public class MeetingReviewFragment extends Fragment {
         Bundle bundle = this.getArguments();
         final int meeting_id = bundle.getInt("meeting_id");
 
-        Meeting meeting = API.getAllMeetingById(meeting_id);
+        Meeting meeting = API.getMeetingById(meeting_id);
 
         TextView review_meeting_name = (TextView) view.findViewById(R.id.review_meeting_name);
         review_meeting_name.setText(meeting.getName());

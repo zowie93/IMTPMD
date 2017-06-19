@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
+
 import java.util.ArrayList;
 
 import imtpmd.imtpmd_stoplicht.API.API;

@@ -26,7 +26,6 @@
                 android:id="@+id/result_meeting_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ICOMMH"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
