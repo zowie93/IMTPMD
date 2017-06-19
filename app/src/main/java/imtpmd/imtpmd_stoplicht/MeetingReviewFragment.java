@@ -88,14 +88,14 @@ public class MeetingReviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Bundle bundle = this.getArguments();
         final View view = inflater.inflate(R.layout.fragment_meeting_review, container, false);
 
         this.sharedPreferences = this.getActivity().getSharedPreferences("imtpmd.imtpmd_stoplicht", Context.MODE_PRIVATE);
 
+        Bundle bundle = this.getArguments();
         final int meeting_id = bundle.getInt("meeting_id");
 
-        Meeting meeting = API.getAllMeetingById(meeting_id);
+        Meeting meeting = API.getMeetingById(meeting_id);
 
         TextView review_meeting_name = (TextView) view.findViewById(R.id.review_meeting_name);
         review_meeting_name.setText(meeting.getName());
@@ -169,13 +169,10 @@ public class MeetingReviewFragment extends Fragment {
         });
 
         annuleren.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Fragment meetingsFragment = new MeetingsFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.flContent, meetingsFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                getFragmentManager().popBackStack();
             }
         });
 

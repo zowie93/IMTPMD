@@ -13,6 +13,10 @@ public class User implements Serializable {
         this.number = number;
     }
 
+    public User (String number) {
+        this.number = number;
+    }
+
     public int getId() {
         return id;
     }

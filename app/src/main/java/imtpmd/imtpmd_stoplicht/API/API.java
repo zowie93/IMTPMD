@@ -73,7 +73,7 @@ public class API {
         return meetings;
     }
 
-    public static Meeting getAllMeetingById(int meeting_id) {
+    public static Meeting getMeetingById(int meeting_id) {
 
         Meeting meeting = new Meeting();
 
@@ -99,8 +99,38 @@ public class API {
 
         ArrayList<Feedback> feedback = new ArrayList<>();
 
-        feedback.add(new Feedback(1, new Emotion("Blij", "blij"),             new User(1, "s1094220"), "omschrijving", new Date("2017-06-16 20:17:51")));
-        feedback.add(new Feedback(2, new Emotion("Verdrietig", "verdrietig"), new User(2, "s6969696"), "omschrijving", new Date("2017-06-16 20:17:51")));
+        try {
+            DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet("http://188.226.134.236/api/meeting/" + meeting_id);
+            HttpResponse httpResponse = defaultHttpClient.execute(httpGet);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+
+            JSONObject jsonObject = new JSONObject(reader.readLine());
+
+            JSONArray jsonArray = jsonObject.getJSONArray("feedback");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject the_feedback = jsonArray.getJSONObject(i);
+                JSONObject emotion      = the_feedback.getJSONObject("emotion");
+                JSONObject user         = the_feedback.getJSONObject("user");
+
+                // Fill what we need.
+                feedback.add(
+                    new Feedback(
+                        the_feedback.getInt("id"),
+                        new Emotion(emotion.getString("name"), emotion.getString("slug")),
+                        new User(user.getString("number")),
+                        the_feedback.getString("description"),
+                        new Date(the_feedback.getString("created_at"))
+                    )
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return feedback;
 
@@ -109,12 +139,29 @@ public class API {
     public static void giveFeedback(int meeting_id, int emotion_id, String username, String description) {
         try {
             DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("http://188.226.134.236/api/feedback/give");
+            HttpPost httpPost = new HttpPost("http://188.226.134.236/api/feedback");
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("meeting_id", Integer.toString(meeting_id)));
             pairs.add(new BasicNameValuePair("emotion_id", Integer.toString(emotion_id)));
             pairs.add(new BasicNameValuePair("number", username));
             pairs.add(new BasicNameValuePair("description", description));
+            httpPost.setEntity(new UrlEncodedFormEntity(pairs));
+            defaultHttpClient.execute(httpPost);
+        }
+
+        catch (Exception e) {}
+    }
+
+    public static void createNewMeeting(String number, String name, String description, String starting_at, String ending_at) {
+        try {
+            DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost("http://188.226.134.236/api/meeting");
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("number", number));
+            pairs.add(new BasicNameValuePair("name", name));
+            pairs.add(new BasicNameValuePair("description", description));
+            pairs.add(new BasicNameValuePair("starting_at", starting_at));
+            pairs.add(new BasicNameValuePair("ending_at", ending_at));
             httpPost.setEntity(new UrlEncodedFormEntity(pairs));
             defaultHttpClient.execute(httpPost);
         }

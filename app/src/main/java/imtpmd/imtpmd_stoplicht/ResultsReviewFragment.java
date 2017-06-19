@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.PieChart;
 
 import java.util.ArrayList;
 
@@ -85,15 +88,20 @@ public class ResultsReviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_results_review, container, false);
 
-        // TODO get from properties.
-        int meeting_id = 1;
+        Bundle bundle = this.getArguments();
+        final int meeting_id = bundle.getInt("meeting_id");
 
         ArrayList<Feedback> feedback = API.getFeedbackByMeetingId(meeting_id);
+        Meeting meeting = API.getMeetingById(meeting_id);
+
+        TextView review_meeting_name = (TextView) view.findViewById(R.id.result_meeting_name);
+        review_meeting_name.setText(meeting.getName());
 
         final ResulstsListAdapter adapter = new ResulstsListAdapter(getActivity(), feedback);
         ListView feedbackListView = (ListView) view.findViewById(R.id.feedbackListView);
-
         feedbackListView.setAdapter(adapter);
+
+
 
         // Inflate the layout for this fragment
         return view;
