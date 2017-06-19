@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import imtpmd.imtpmd_stoplicht.API.API;
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
@@ -152,6 +154,25 @@ public class MeetingReviewFragment extends Fragment {
                 String username    = sharedPreferences.getString("studentnumber", "Freek Vonk");
 
                 API.giveFeedback(meeting_id, emotion_id, username, description);
+
+                Toast.makeText(getActivity(), "Uw feedback is succesvol opgeslagen!", Toast.LENGTH_LONG).show();
+
+                Fragment meetingsFragment = new MeetingsFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.flContent, meetingsFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        annuleren.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment meetingsFragment = new MeetingsFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.flContent, meetingsFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
