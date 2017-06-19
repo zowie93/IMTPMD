@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -58,6 +59,8 @@ public class MeetingsFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    public boolean isFABOpen = false;
 
     public MeetingsFragment() {
         // Required empty public constructor
@@ -126,8 +129,49 @@ public class MeetingsFragment extends Fragment {
 
         meetingsListView.setAdapter(adapter);
 
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        final FloatingActionButton fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                if (!isFABOpen) {
+                    showFABMenu();
+                } else {
+                    closeFABMenu();
+                }
+            }
+
+            private void showFABMenu() {
+                isFABOpen = true;
+                fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_65));
+            }
+
+            private void closeFABMenu() {
+                isFABOpen = false;
+                fab1.animate().translationY(0);
+            }
+        });
+
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isFABOpen) {
+                    Fragment addMeetingFragment = new AddMeetingFragment();
+                    FragmentTransaction addMeetingTrans = getFragmentManager().beginTransaction();
+                    addMeetingTrans.replace(R.id.flContent, addMeetingFragment);
+                    addMeetingTrans.addToBackStack(null);
+                    addMeetingTrans.commit();
+
+                }
+            }
+        });
+
+
         return view;
-    }
+}
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -142,18 +186,19 @@ public class MeetingsFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+/**
+ * This interface must be implemented by activities that contain this
+ * fragment to allow an interaction in this fragment to be communicated
+ * to the activity and potentially other fragments contained in that
+ * activity.
+ * <p>
+ * See the Android Training lesson <a href=
+ * "http://developer.android.com/training/basics/fragments/communicating.html"
+ * >Communicating with Other Fragments</a> for more information.
+ */
+public interface OnFragmentInteractionListener {
+    // TODO: Update argument type and name
+    void onFragmentInteraction(Uri uri);
+}
+
 }
