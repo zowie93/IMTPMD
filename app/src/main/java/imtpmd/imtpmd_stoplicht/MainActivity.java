@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements MeetingReviewFragment.OnFragmentInteractionListener  {
 
@@ -77,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements MeetingReviewFrag
     public void selectDrawerItem(MenuItem menuItem) {
         Fragment fragment = null;
 
+        AppCompatActivity activity = this;
+
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.nav_meetings_fragment:
@@ -94,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements MeetingReviewFrag
 
                 Intent intent = new Intent(this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                Toast.makeText(activity, "U bent succesvol uitgelogd.", Toast.LENGTH_LONG).show();
+
 
                 startActivity(intent);
 
