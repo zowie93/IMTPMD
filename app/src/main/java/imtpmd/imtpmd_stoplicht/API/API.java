@@ -73,7 +73,7 @@ public class API {
         return meetings;
     }
 
-    public static Meeting getAllMeetingById(int meeting_id) {
+    public static Meeting getMeetingById(int meeting_id) {
 
         Meeting meeting = new Meeting();
 
@@ -116,6 +116,7 @@ public class API {
                 JSONObject emotion      = the_feedback.getJSONObject("emotion");
                 JSONObject user         = the_feedback.getJSONObject("user");
 
+                // Fill what we need.
                 feedback.add(
                     new Feedback(
                         the_feedback.getInt("id"),

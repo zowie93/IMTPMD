@@ -90,15 +90,16 @@ public class ResultsReviewFragment extends Fragment {
         final int meeting_id = bundle.getInt("meeting_id");
 
         ArrayList<Feedback> feedback = API.getFeedbackByMeetingId(meeting_id);
-        Meeting meeting = API.getAllMeetingById(meeting_id);
+        Meeting meeting = API.getMeetingById(meeting_id);
 
         TextView review_meeting_name = (TextView) view.findViewById(R.id.result_meeting_name);
         review_meeting_name.setText(meeting.getName());
 
         final ResulstsListAdapter adapter = new ResulstsListAdapter(getActivity(), feedback);
         ListView feedbackListView = (ListView) view.findViewById(R.id.feedbackListView);
-
         feedbackListView.setAdapter(adapter);
+
+
 
         // Inflate the layout for this fragment
         return view;
