@@ -139,7 +139,7 @@ public class API {
     public static void giveFeedback(int meeting_id, int emotion_id, String username, String description) {
         try {
             DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("http://188.226.134.236/api/feedback/give");
+            HttpPost httpPost = new HttpPost("http://188.226.134.236/api/feedback");
             List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("meeting_id", Integer.toString(meeting_id)));
             pairs.add(new BasicNameValuePair("emotion_id", Integer.toString(emotion_id)));
