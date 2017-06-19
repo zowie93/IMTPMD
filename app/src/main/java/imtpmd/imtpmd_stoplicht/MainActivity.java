@@ -137,4 +137,9 @@ public class MainActivity extends AppCompatActivity implements MeetingReviewFrag
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
