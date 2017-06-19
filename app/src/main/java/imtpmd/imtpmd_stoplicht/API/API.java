@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import imtpmd.imtpmd_stoplicht.Models.Date;
+import imtpmd.imtpmd_stoplicht.Models.Emotion;
+import imtpmd.imtpmd_stoplicht.Models.Feedback;
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
 import imtpmd.imtpmd_stoplicht.Models.User;
 
@@ -22,7 +24,8 @@ public class API {
 
     public static ArrayList<Meeting> getAllMeetings() {
 
-        ArrayList<Meeting> meetings = new ArrayList<Meeting>();
+        ArrayList<Meeting> meetings = new ArrayList<>();
+
         try {
             DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
             HttpGet httpGet = new HttpGet("http://188.226.134.236/api/meeting");
@@ -53,4 +56,14 @@ public class API {
         return meetings;
     }
 
+    public static ArrayList<Feedback> getFeedbackByMeetingId(int meeting_id) {
+
+        ArrayList<Feedback> feedback = new ArrayList<Feedback>();
+
+        feedback.add(new Feedback(1, new Emotion("Blij", "blij"),             new User(1, "s1094220"), "omschrijving", new Date("2017-06-16 20:17:51")));
+        feedback.add(new Feedback(2, new Emotion("Verdrietig", "verdrietig"), new User(2, "s6969696"), "omschrijving", new Date("2017-06-16 20:17:51")));
+
+        return feedback;
+
+    }
 }

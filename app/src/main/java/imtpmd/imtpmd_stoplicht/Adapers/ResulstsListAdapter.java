@@ -1,7 +1,6 @@
 package imtpmd.imtpmd_stoplicht.Adapers;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import imtpmd.imtpmd_stoplicht.Models.Feedback;
-import imtpmd.imtpmd_stoplicht.Models.Meeting;
 import imtpmd.imtpmd_stoplicht.R;
 
 public class ResulstsListAdapter extends BaseAdapter {
@@ -47,7 +43,7 @@ public class ResulstsListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(this.context).inflate(R.layout.list_item, parent, false);
+            convertView = LayoutInflater.from(this.context).inflate(R.layout.results_review_item, parent, false);
         }
 
         Feedback feedback = this.getItem(position);
@@ -57,7 +53,7 @@ public class ResulstsListAdapter extends BaseAdapter {
         TextView  feedback_description    = (TextView)  convertView.findViewById(R.id.feedback_description);
         TextView  feedback_timstamp       = (TextView)  convertView.findViewById(R.id.feedback_timestamp);
 
-        feedback_emotion.setImageResource(R.drawable.verdrietig);
+        feedback_emotion.setImageResource(context.getResources().getIdentifier(feedback.getEmotion().getSlug(), "drawable", context.getPackageName()));
         feedback_student_number.setText(feedback.getUser().getNumber());
         feedback_description.setText(feedback.getDescription());
         feedback_timstamp.setText(feedback.getCreated_at().toString());
