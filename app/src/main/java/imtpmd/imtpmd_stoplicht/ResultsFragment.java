@@ -51,6 +51,12 @@ public class ResultsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Resultaten");
+    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.

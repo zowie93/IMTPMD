@@ -32,4 +32,8 @@
     <string name="menu_item_3">Over deze applicatie</string>
     <string name="menu_item_4">Uitloggen</string>
     <string name="menu_header_text">IMTPMD</string>
+    <string name="review_annuleren">Annuleren</string>
+    <string name="review_versturen">Versturen</string>
+    <string name="review_eventuele_opmerking">Eventuele opmerking</string>
+    <string name="review_geef_je_mening">Geef je mening</string>
 </resources>

@@ -19,6 +19,11 @@ public class Emotion implements Serializable {
         this.updated_at = updated_at;
     }
 
+    public Emotion(String name, String slug) {
+        this.name = name;
+        this.slug = slug;
+    }
+
     public int getId() {
         return id;
     }

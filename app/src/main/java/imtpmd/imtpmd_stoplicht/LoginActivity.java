@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -22,6 +23,8 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import imtpmd.imtpmd_stoplicht.API.API;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -46,32 +49,31 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        final AppCompatActivity activity = this;
+
         login_button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 String login_number_new = login_number.getText().toString();
 
+                API.login(login_number_new);
 
-                try {
-                    DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
-                    HttpPost httpPost = new HttpPost("http://188.226.134.236/api/user/login");
-                    List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-                    pairs.add(new BasicNameValuePair("number", login_number_new));
-                    httpPost.setEntity(new UrlEncodedFormEntity(pairs));
-                    HttpResponse httpResponse = defaultHttpClient.execute(httpPost);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("studentnumber", login_number_new);
+                editor.commit();
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("studentnumber", login_number_new);
-                    editor.commit();
+                Toast.makeText(activity, "U bent succesvol ingelogd.", Toast.LENGTH_LONG).show();
 
-                    startActivity(intent);
-                }
 
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
+                startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.setTitle("Inloggen");
     }
 }

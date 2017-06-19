@@ -24,10 +24,9 @@
             tools:layout_constraintTop_creator="1">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/review_meeting_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ICOMMH"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
@@ -39,7 +38,7 @@
                 android:id="@+id/textView13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Geef je mening" />
+                android:text="@string/review_geef_je_mening" />
 
             <Space
                 android:layout_width="match_parent"
@@ -51,27 +50,30 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/review_verdrietig"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginRight="15dp"
+                    android:clickable="true"
                     app:srcCompat="@drawable/verdrietig" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/review_neutraal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/neutraal" />
+                    android:clickable="true"
+                    app:srcCompat="@drawable/neutraal_active" />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/review_blij"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="15dp"
-                    app:srcCompat="@drawable/blij" />
+                    android:clickable="true"
+                    app:srcCompat="@drawable/blij_active" />
 
             </LinearLayout>
 
@@ -83,10 +85,10 @@
                 android:id="@+id/textView14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Eventuele opmerking" />
+                android:text="@string/review_eventuele_opmerking" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/review_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -98,18 +100,18 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/review_annuleren"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Annuleren" />
+                    android:text="@string/review_annuleren" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/review_versturen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Versturen" />
+                    android:text="@string/review_versturen" />
             </LinearLayout>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>

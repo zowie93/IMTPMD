@@ -7,6 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
+import imtpmd.imtpmd_stoplicht.API.API;
+import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
+import imtpmd.imtpmd_stoplicht.Adapers.ResulstsListAdapter;
+import imtpmd.imtpmd_stoplicht.Models.Feedback;
+import imtpmd.imtpmd_stoplicht.Models.Meeting;
 
 
 /**
@@ -31,6 +40,12 @@ public class ResultsReviewFragment extends Fragment {
 
     public ResultsReviewFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Feedback");
     }
 
     /**
@@ -66,8 +81,22 @@ public class ResultsReviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_results_review, container, false);
+        View view = inflater.inflate(R.layout.fragment_results_review, container, false);
+
+        // TODO get from properties.
+        int meeting_id = 1;
+
+        ArrayList<Feedback> feedback = API.getFeedbackByMeetingId(meeting_id);
+
+        final ResulstsListAdapter adapter = new ResulstsListAdapter(getActivity(), feedback);
+        ListView feedbackListView = (ListView) view.findViewById(R.id.feedbackListView);
+
+        feedbackListView.setAdapter(adapter);
+
+        // Inflate the layout for this fragment
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
