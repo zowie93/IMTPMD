@@ -101,9 +101,9 @@ public class MeetingReviewFragment extends Fragment {
             public void onClick(View v) {
                 emotion_id = 3;
 
-                verdrietig.setImageResource(R.drawable.verdrietig_active);
-                neutraal.setImageResource(R.drawable.neutraal);
-                blij.setImageResource(R.drawable.blij);
+                verdrietig.setImageResource(R.drawable.verdrietig);
+                neutraal.setImageResource(R.drawable.neutraal_active);
+                blij.setImageResource(R.drawable.blij_active);
 
             }
         });
@@ -114,9 +114,9 @@ public class MeetingReviewFragment extends Fragment {
             public void onClick(View v) {
                 emotion_id = 2;
 
-                verdrietig.setImageResource(R.drawable.verdrietig);
-                neutraal.setImageResource(R.drawable.neutraal_active);
-                blij.setImageResource(R.drawable.blij);
+                verdrietig.setImageResource(R.drawable.verdrietig_active);
+                neutraal.setImageResource(R.drawable.neutraal);
+                blij.setImageResource(R.drawable.blij_active);
             }
         });
 
@@ -126,9 +126,9 @@ public class MeetingReviewFragment extends Fragment {
             public void onClick(View v) {
                 emotion_id = 1;
 
-                verdrietig.setImageResource(R.drawable.verdrietig);
-                neutraal.setImageResource(R.drawable.neutraal);
-                blij.setImageResource(R.drawable.blij_active);
+                verdrietig.setImageResource(R.drawable.verdrietig_active);
+                neutraal.setImageResource(R.drawable.neutraal_active);
+                blij.setImageResource(R.drawable.blij);
             }
         });
 
