@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -48,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        final AppCompatActivity activity = this;
+
         login_button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -60,8 +63,17 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("studentnumber", login_number_new);
                 editor.commit();
 
+                Toast.makeText(activity, "U bent succesvol ingelogd.", Toast.LENGTH_LONG).show();
+
+
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.setTitle("Inloggen");
     }
 }

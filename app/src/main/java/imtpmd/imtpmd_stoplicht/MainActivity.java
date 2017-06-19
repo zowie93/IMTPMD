@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements MeetingReviewFrag
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         menuItem.setChecked(true);
-        setTitle(menuItem.getTitle());
         mDrawer.closeDrawers();
     }
 
