@@ -85,8 +85,8 @@ public class ResultsReviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_results_review, container, false);
 
-        // TODO get from properties.
-        int meeting_id = 1;
+        Bundle bundle = this.getArguments();
+        final int meeting_id = bundle.getInt("meeting_id");
 
         ArrayList<Feedback> feedback = API.getFeedbackByMeetingId(meeting_id);
 

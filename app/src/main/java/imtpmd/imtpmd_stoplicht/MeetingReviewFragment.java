@@ -88,11 +88,11 @@ public class MeetingReviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Bundle bundle = this.getArguments();
         final View view = inflater.inflate(R.layout.fragment_meeting_review, container, false);
 
         this.sharedPreferences = this.getActivity().getSharedPreferences("imtpmd.imtpmd_stoplicht", Context.MODE_PRIVATE);
 
+        Bundle bundle = this.getArguments();
         final int meeting_id = bundle.getInt("meeting_id");
 
         Meeting meeting = API.getAllMeetingById(meeting_id);
