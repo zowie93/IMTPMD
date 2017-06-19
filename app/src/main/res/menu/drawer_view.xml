@@ -4,25 +4,25 @@
            android:id="@+id/nav_group_1">
         <item
             android:id="@+id/nav_meetings_fragment"
-            android:icon="@drawable/ic_one"
+            android:icon="@android:drawable/ic_menu_my_calendar"
             android:title="@string/menu_item_1" />
         <item
             android:id="@+id/nav_results_fragment"
-            android:icon="@drawable/ic_two"
+            android:icon="@android:drawable/ic_menu_zoom"
             android:title="@string/menu_item_2" />
     </group>
     <group android:checkableBehavior="single"
         android:id="@+id/nav_group_2">
         <item
             android:id="@+id/nav_credits_fragment"
-            android:icon="@drawable/ic_three"
+            android:icon="@android:drawable/ic_menu_help"
             android:title="@string/menu_item_3" />
     </group>
     <group android:checkableBehavior="single"
         android:id="@+id/nav_group_3">
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_three"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
             android:title="@string/menu_item_4" />
     </group>
 </menu>
