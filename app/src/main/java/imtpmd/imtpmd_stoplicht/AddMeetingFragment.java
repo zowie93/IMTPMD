@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,6 +41,8 @@ public class AddMeetingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private SharedPreferences sharedPreferences;
 
     private OnFragmentInteractionListener mListener;
 
@@ -84,13 +87,19 @@ public class AddMeetingFragment extends Fragment {
         Bundle bundle = this.getArguments();
         final View view = inflater.inflate(R.layout.fragment_add_meeting, container, false);
 
+        this.sharedPreferences = getActivity().getSharedPreferences("imtpmd.imtpmd_stoplicht", Context.MODE_PRIVATE);
+        String studentnumber = sharedPreferences.getString("studentnumber", "Freek Vonk");
+
+        TextView number = (TextView) view.findViewById(R.id.create_new_studentnumber);
+        number.setText(studentnumber);
+
         // Data enzo
         EditText fromDate = (EditText) view.findViewById(R.id.from_date);
-        EditText toDate = (EditText) view.findViewById(R.id.to_date);
+        EditText toDate   = (EditText) view.findViewById(R.id.to_date);
 
         // Beetje tijd enzo
         EditText fromTime = (EditText) view.findViewById(R.id.from_time);
-        EditText toTime = (EditText) view.findViewById(R.id.to_time);
+        EditText toTime   = (EditText) view.findViewById(R.id.to_time);
 
 
         // From date click listener enzo

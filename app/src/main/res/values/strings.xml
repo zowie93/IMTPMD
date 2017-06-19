@@ -39,4 +39,6 @@
     <string name="datum">Datum</string>
     <string name="tijd">Tijd</string>
     <string name="tot">Tot</string>
+    <string name="create_new_omschrijving">Omschrijving</string>
+    <string name="create_new_vak">Vak</string>
 </resources>
