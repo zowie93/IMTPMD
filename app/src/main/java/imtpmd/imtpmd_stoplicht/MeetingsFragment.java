@@ -153,6 +153,11 @@ public class MeetingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(isFABOpen) {
+                    Fragment addMeetingFragment = new AddMeetingFragment();
+                    FragmentTransaction addMeetingTrans = getFragmentManager().beginTransaction();
+                    addMeetingTrans.replace(R.id.flContent, addMeetingFragment);
+                    addMeetingTrans.addToBackStack(null);
+                    addMeetingTrans.commit();
 
                 }
             }
