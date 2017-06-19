@@ -1,41 +1,23 @@
 package imtpmd.imtpmd_stoplicht;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-
-import imtpmd.imtpmd_stoplicht.API.API;
-import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
-import imtpmd.imtpmd_stoplicht.Models.Date;
-import imtpmd.imtpmd_stoplicht.Models.Meeting;
-import imtpmd.imtpmd_stoplicht.Models.User;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ResultsFragment.OnFragmentInteractionListener} interface
+ * {@link ResultsReviewFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ResultsFragment#newInstance} factory method to
+ * Use the {@link ResultsReviewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ResultsFragment extends Fragment {
+public class ResultsReviewFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -47,7 +29,7 @@ public class ResultsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ResultsFragment() {
+    public ResultsReviewFragment() {
         // Required empty public constructor
     }
 
@@ -57,11 +39,11 @@ public class ResultsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ResultsFragment.
+     * @return A new instance of fragment ResultsReviewFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ResultsFragment newInstance(String param1, String param2) {
-        ResultsFragment fragment = new ResultsFragment();
+    public static ResultsReviewFragment newInstance(String param1, String param2) {
+        ResultsReviewFragment fragment = new ResultsReviewFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,6 +54,9 @@ public class ResultsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActivity().setTitle("Resultaat");
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -82,31 +67,7 @@ public class ResultsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_results, container, false);
-
-        ArrayList<Meeting> meetings = API.getAllMeetings();
-
-        final MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), meetings);
-        ListView meetingsListView = (ListView) view.findViewById(R.id.meetingsListView);
-
-        meetingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Fragment resultsReviewFragment = new ResultsReviewFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("meeting_id", adapter.getItem(position).getId());
-                resultsReviewFragment.setArguments(bundle);
-
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.flContent, resultsReviewFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
-        meetingsListView.setAdapter(adapter);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_results_review, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
