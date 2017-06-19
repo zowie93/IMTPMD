@@ -151,4 +151,21 @@ public class API {
 
         catch (Exception e) {}
     }
+
+    public static void createNewMeeting(String number, String name, String description, String starting_at, String ending_at) {
+        try {
+            DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost("http://188.226.134.236/api/meeting");
+            List<NameValuePair> pairs = new ArrayList<>();
+            pairs.add(new BasicNameValuePair("number", number));
+            pairs.add(new BasicNameValuePair("name", name));
+            pairs.add(new BasicNameValuePair("description", description));
+            pairs.add(new BasicNameValuePair("starting_at", starting_at));
+            pairs.add(new BasicNameValuePair("ending_at", ending_at));
+            httpPost.setEntity(new UrlEncodedFormEntity(pairs));
+            defaultHttpClient.execute(httpPost);
+        }
+
+        catch (Exception e) {}
+    }
 }
