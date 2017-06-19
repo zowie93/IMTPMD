@@ -4,23 +4,32 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
+import imtpmd.imtpmd_stoplicht.API.API;
 
 
 /**
@@ -40,6 +49,8 @@ public class AddMeetingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private SharedPreferences sharedPreferences;
 
     private OnFragmentInteractionListener mListener;
 
@@ -84,14 +95,56 @@ public class AddMeetingFragment extends Fragment {
         Bundle bundle = this.getArguments();
         final View view = inflater.inflate(R.layout.fragment_add_meeting, container, false);
 
+        this.sharedPreferences = getActivity().getSharedPreferences("imtpmd.imtpmd_stoplicht", Context.MODE_PRIVATE);
+        final String studentnumber = sharedPreferences.getString("studentnumber", "Freek Vonk");
+
+        TextView number = (TextView) view.findViewById(R.id.create_new_studentnumber);
+        number.setText(studentnumber);
+
         // Data enzo
-        EditText fromDate = (EditText) view.findViewById(R.id.from_date);
-        EditText toDate = (EditText) view.findViewById(R.id.to_date);
+        final EditText fromDate = (EditText) view.findViewById(R.id.from_date);
+        final EditText toDate   = (EditText) view.findViewById(R.id.to_date);
 
         // Beetje tijd enzo
-        EditText fromTime = (EditText) view.findViewById(R.id.from_time);
-        EditText toTime = (EditText) view.findViewById(R.id.to_time);
+        final EditText fromTime = (EditText) view.findViewById(R.id.from_time);
+        final EditText toTime   = (EditText) view.findViewById(R.id.to_time);
 
+        final TextView title       = (TextView) view.findViewById(R.id.create_new_title);
+        final TextView description = (TextView) view.findViewById(R.id.create_new_description);
+        final Button   versturen   = (Button)   view.findViewById(R.id.toevoegen);
+        final Button   annuleren   = (Button)   view.findViewById(R.id.annuleren);
+
+
+        versturen.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                API.createNewMeeting(
+                    studentnumber,
+                    title.getText().toString(),
+                    description.getText().toString(),
+                    fromDate.getText() + " " + fromTime.getText(),
+                    toDate.getText()   + " " + toTime.getText()
+                );
+
+                Toast.makeText(getActivity(), "De bijeenkomst is succesvol toegevoegd.", Toast.LENGTH_LONG).show();
+
+                Fragment meetingsFragment = new MeetingsFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.flContent, meetingsFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        annuleren.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
 
         // From date click listener enzo
         fromDate.setOnClickListener(new View.OnClickListener() {
@@ -136,8 +189,6 @@ public class AddMeetingFragment extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
@@ -169,9 +220,8 @@ public class AddMeetingFragment extends Fragment {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            Toast.makeText(getContext(), "Datum Van: " + day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
-
-            ((TextView) getActivity().findViewById(R.id.from_date)).setText(day + "/" + month + "/" + year);
+            String date = new SimpleDateFormat("dd/MM/yy").format(new Date(year, month, day));
+            ((TextView) getActivity().findViewById(R.id.from_date)).setText(date);
         }
     }
 
@@ -191,9 +241,8 @@ public class AddMeetingFragment extends Fragment {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            Toast.makeText(getContext(), "Datum Tot: " + day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
-
-            ((TextView) getActivity().findViewById(R.id.to_date)).setText(day + "/" + month + "/" + year);
+            String date = new SimpleDateFormat("dd/MM/yy").format(new Date(year, month, day));
+            ((TextView) getActivity().findViewById(R.id.to_date)).setText(date);
         }
     }
 
@@ -207,14 +256,15 @@ public class AddMeetingFragment extends Fragment {
             final Calendar c = Calendar.getInstance();
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
-
             return new TimePickerDialog(getActivity(), this, hour, minute, true);
         }
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            Toast.makeText(getContext(), "Tijd van: " + hourOfDay + ":" + minute, Toast.LENGTH_LONG).show();
-            ((TextView) getActivity().findViewById(R.id.to_time)).setText(hourOfDay + ":" + minute);
+
+            String time = new SimpleDateFormat("HH:mm").format(new Date(0, 0, 0, hourOfDay, minute, 0));
+
+            ((TextView) getActivity().findViewById(R.id.from_time)).setText(time);
         }
     }
 
@@ -234,8 +284,10 @@ public class AddMeetingFragment extends Fragment {
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            Toast.makeText(getContext(), "Tijd tot: " + hourOfDay + ":" + minute, Toast.LENGTH_LONG).show();
-            ((TextView) getActivity().findViewById(R.id.to_time)).setText(hourOfDay + ":" + minute);
+
+            String time = new SimpleDateFormat("HH:mm").format(new Date(0, 0, 0, hourOfDay, minute, 0));
+
+            ((TextView) getActivity().findViewById(R.id.to_time)).setText(time);
         }
     }
 

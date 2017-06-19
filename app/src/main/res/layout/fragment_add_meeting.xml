@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/stnummer"
+                android:id="@+id/create_new_studentnumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
@@ -40,12 +40,12 @@
                 android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/meeting_text"
+                android:id="@+id/create_new_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="@string/create_new_vak"
                 android:inputType="textPersonName"
-                android:text="Vak"
                 android:textAppearance="@android:style/TextAppearance.Material.Large.Inverse" />
 
             <Space
@@ -53,12 +53,12 @@
                 android:layout_height="wrap_content" />
 
             <EditText
-                android:id="@+id/desc_text"
+                android:id="@+id/create_new_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Korte omschrijving" />
+                android:hint="@string/create_new_omschrijving"
+                android:inputType="textPersonName" />
 
             <Space
                 android:layout_width="match_parent"
@@ -147,14 +147,14 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/review_annuleren"
+                    android:id="@+id/annuleren"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/review_annuleren" />
 
                 <Button
-                    android:id="@+id/review_versturen"
+                    android:id="@+id/toevoegen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

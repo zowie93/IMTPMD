@@ -129,7 +129,7 @@ public class MeetingsFragment extends Fragment {
 
         meetingsListView.setAdapter(adapter);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         final FloatingActionButton fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -147,11 +147,13 @@ public class MeetingsFragment extends Fragment {
             private void showFABMenu() {
                 isFABOpen = true;
                 fab1.animate().translationY(-getResources().getDimension(R.dimen.standard_65));
+                fab.animate().rotation(135);
             }
 
             private void closeFABMenu() {
                 isFABOpen = false;
                 fab1.animate().translationY(0);
+                fab.animate().rotation(0);
             }
         });
 
