@@ -36,4 +36,7 @@
     <string name="review_versturen">Versturen</string>
     <string name="review_eventuele_opmerking">Eventuele opmerking</string>
     <string name="review_geef_je_mening">Geef je mening</string>
+    <string name="datum">Datum</string>
+    <string name="tijd">Tijd</string>
+    <string name="tot">Tot</string>
 </resources>

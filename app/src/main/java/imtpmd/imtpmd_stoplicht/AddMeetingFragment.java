@@ -2,9 +2,11 @@ package imtpmd.imtpmd_stoplicht;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,8 +16,10 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.sql.Time;
 import java.util.Calendar;
 
 
@@ -80,8 +84,13 @@ public class AddMeetingFragment extends Fragment {
         Bundle bundle = this.getArguments();
         final View view = inflater.inflate(R.layout.fragment_add_meeting, container, false);
 
+        // Data enzo
         EditText fromDate = (EditText) view.findViewById(R.id.from_date);
         EditText toDate = (EditText) view.findViewById(R.id.to_date);
+
+        // Beetje tijd enzo
+        EditText fromTime = (EditText) view.findViewById(R.id.from_time);
+        EditText toTime = (EditText) view.findViewById(R.id.to_time);
 
 
         // From date click listener enzo
@@ -105,6 +114,29 @@ public class AddMeetingFragment extends Fragment {
             }
         });
 
+        // From time click listener enzo
+        fromTime.setOnClickListener(new View.OnClickListener() {
+
+            // Lekker overriden mag allemaal
+            @Override
+            public void onClick(View v) {
+                DialogFragment fromTimeFragment = new TimePickerFragmentFrom();
+                fromTimeFragment.show(getFragmentManager(), "timePicker");
+            }
+        });
+
+        // From time click listener enzo
+        toTime.setOnClickListener(new View.OnClickListener() {
+
+            // Lekker overriden mag allemaal
+            @Override
+            public void onClick(View v) {
+                DialogFragment toTimeFragment = new TimePickerFragmentTo();
+                toTimeFragment.show(getFragmentManager(), "timePicker");
+            }
+        });
+
+
 
         return view;
     }
@@ -125,6 +157,7 @@ public class AddMeetingFragment extends Fragment {
     public static class DatePickerFragmentFrom extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Calendar c = Calendar.getInstance();
@@ -136,7 +169,7 @@ public class AddMeetingFragment extends Fragment {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            Toast.makeText(getContext(), "Datum Van : " + day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Datum Van: " + day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
 
             ((TextView) getActivity().findViewById(R.id.from_date)).setText(day + "/" + month + "/" + year);
         }
@@ -145,8 +178,10 @@ public class AddMeetingFragment extends Fragment {
     public static class DatePickerFragmentTo extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
@@ -156,9 +191,51 @@ public class AddMeetingFragment extends Fragment {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            Toast.makeText(getContext(), "Datum Tot : " + day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Datum Tot: " + day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
 
             ((TextView) getActivity().findViewById(R.id.to_date)).setText(day + "/" + month + "/" + year);
+        }
+    }
+
+    public static class TimePickerFragmentFrom extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, hour, minute, true);
+        }
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            Toast.makeText(getContext(), "Tijd van: " + hourOfDay + ":" + minute, Toast.LENGTH_LONG).show();
+            ((TextView) getActivity().findViewById(R.id.to_time)).setText(hourOfDay + ":" + minute);
+        }
+    }
+
+    public static class TimePickerFragmentTo extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(), this, hour, minute, true);
+        }
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            Toast.makeText(getContext(), "Tijd tot: " + hourOfDay + ":" + minute, Toast.LENGTH_LONG).show();
+            ((TextView) getActivity().findViewById(R.id.to_time)).setText(hourOfDay + ":" + minute);
         }
     }
 

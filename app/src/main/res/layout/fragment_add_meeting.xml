@@ -83,7 +83,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="date"
-                    android:focusable="false"/>
+                    android:focusable="false"
+                    android:hint="@string/datum"/>
 
                 <EditText
                     android:id="@+id/from_time"
@@ -91,7 +92,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="time"/>
+                    android:inputType="time"
+                    android:focusable="false"
+                    android:hint="@string/tijd"/>
 
             </LinearLayout>
 
@@ -103,7 +106,7 @@
                 android:id="@+id/To"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tot"
+                android:text="@string/tot"
                 android:textColor="@color/colorPrimary" />
 
             <LinearLayout
@@ -118,7 +121,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="date"
-                    android:focusable="false" />
+                    android:focusable="false"
+                    android:hint="@string/datum"/>
 
                 <EditText
                     android:id="@+id/to_time"
@@ -126,7 +130,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="time" />
+                    android:inputType="time"
+                    android:focusable="false"
+                    android:hint="@string/tijd"/>
 
             </LinearLayout>
 
