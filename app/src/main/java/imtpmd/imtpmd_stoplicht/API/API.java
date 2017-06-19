@@ -99,8 +99,37 @@ public class API {
 
         ArrayList<Feedback> feedback = new ArrayList<>();
 
-        feedback.add(new Feedback(1, new Emotion("Blij", "blij"),             new User(1, "s1094220"), "omschrijving", new Date("2017-06-16 20:17:51")));
-        feedback.add(new Feedback(2, new Emotion("Verdrietig", "verdrietig"), new User(2, "s6969696"), "omschrijving", new Date("2017-06-16 20:17:51")));
+        try {
+            DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet("http://188.226.134.236/api/meeting/" + meeting_id);
+            HttpResponse httpResponse = defaultHttpClient.execute(httpGet);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+
+            JSONObject jsonObject = new JSONObject(reader.readLine());
+
+            JSONArray jsonArray = jsonObject.getJSONArray("feedback");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject the_feedback = jsonArray.getJSONObject(i);
+                JSONObject emotion      = the_feedback.getJSONObject("emotion");
+                JSONObject user         = the_feedback.getJSONObject("user");
+
+                feedback.add(
+                    new Feedback(
+                        the_feedback.getInt("id"),
+                        new Emotion(emotion.getString("name"), emotion.getString("slug")),
+                        new User(user.getString("number")),
+                        the_feedback.getString("description"),
+                        new Date(the_feedback.getString("created_at"))
+                    )
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return feedback;
 
