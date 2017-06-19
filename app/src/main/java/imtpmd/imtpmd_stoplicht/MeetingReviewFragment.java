@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
 
@@ -29,6 +30,12 @@ public class MeetingReviewFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private int emotion_id;
+
+    private ImageView verdrietig;
+    private ImageView neutraal;
+    private ImageView blij;
 
     private OnFragmentInteractionListener mListener;
 
@@ -71,26 +78,60 @@ public class MeetingReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Bundle bundle = this.getArguments();
+        View view = inflater.inflate(R.layout.fragment_meeting_review, container, false);
+
         int meeting_id = bundle.getInt("meeting_id");
 
-        return inflater.inflate(R.layout.fragment_meeting_review, container, false);
+        this.emotion_id = 3;
+
+        this.verdrietig = (ImageView) view.findViewById(R.id.review_verdrietig);
+        this.neutraal   = (ImageView) view.findViewById(R.id.review_neutraal);
+        this.blij       = (ImageView) view.findViewById(R.id.review_blij);
+
+        verdrietig.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                emotion_id = 3;
+
+                verdrietig.setImageResource(R.drawable.verdrietig_active);
+                neutraal.setImageResource(R.drawable.neutraal);
+                blij.setImageResource(R.drawable.blij);
+
+            }
+        });
+
+        neutraal.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                emotion_id = 2;
+
+                verdrietig.setImageResource(R.drawable.verdrietig);
+                neutraal.setImageResource(R.drawable.neutraal_active);
+                blij.setImageResource(R.drawable.blij);
+            }
+        });
+
+        blij.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                emotion_id = 1;
+
+                verdrietig.setImageResource(R.drawable.verdrietig);
+                neutraal.setImageResource(R.drawable.neutraal);
+                blij.setImageResource(R.drawable.blij_active);
+            }
+        });
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
         }
     }
 
