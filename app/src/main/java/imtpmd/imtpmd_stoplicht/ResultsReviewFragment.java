@@ -1,6 +1,7 @@
 package imtpmd.imtpmd_stoplicht;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
@@ -19,6 +26,8 @@ import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
 import imtpmd.imtpmd_stoplicht.Adapers.ResulstsListAdapter;
 import imtpmd.imtpmd_stoplicht.Models.Feedback;
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
+
+import static android.R.attr.entries;
 
 
 /**
@@ -38,6 +47,12 @@ public class ResultsReviewFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    PieChart pieChart ;
+    ArrayList<Entry> entries ;
+    ArrayList<String> PieEntryLabels ;
+    PieDataSet pieDataSet ;
+    PieData pieData ;
 
     private OnFragmentInteractionListener mListener;
 
@@ -101,6 +116,28 @@ public class ResultsReviewFragment extends Fragment {
         ListView feedbackListView = (ListView) view.findViewById(R.id.feedbackListView);
         feedbackListView.setAdapter(adapter);
 
+        pieChart = (PieChart) view.findViewById(R.id.chart);
+
+
+        entries = new ArrayList<>();
+
+        PieEntryLabels = new ArrayList<String>();
+
+        AddValuesToPIEENTRY();
+
+        AddValuesToPieEntryLabels();
+
+        pieDataSet = new PieDataSet(entries, "");
+
+        pieData = new PieData(PieEntryLabels, pieDataSet);
+
+        pieDataSet.setColors(new int [] {
+            Color.rgb(19, 145, 128), Color.rgb(253, 166, 57), Color.rgb(252, 68, 75)
+        });
+
+        pieChart.setData(pieData);
+
+        pieChart.animateY(3000);
 
 
         // Inflate the layout for this fragment
@@ -133,5 +170,21 @@ public class ResultsReviewFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void AddValuesToPIEENTRY(){
+
+        entries.add(new BarEntry(2, 0));
+        entries.add(new BarEntry(4, 1));
+        entries.add(new BarEntry(6, 2));
+
+    }
+
+    public void AddValuesToPieEntryLabels(){
+
+        PieEntryLabels.add("Blij");
+        PieEntryLabels.add("Neutraal");
+        PieEntryLabels.add("Verdrietig");
+
     }
 }
