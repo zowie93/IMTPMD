@@ -169,13 +169,10 @@ public class MeetingReviewFragment extends Fragment {
         });
 
         annuleren.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                Fragment meetingsFragment = new MeetingsFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.flContent, meetingsFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                getFragmentManager().popBackStack();
             }
         });
 

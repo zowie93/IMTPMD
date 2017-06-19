@@ -65,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(activity, "U bent succesvol ingelogd.", Toast.LENGTH_LONG).show();
 
-
                 startActivity(intent);
             }
         });
