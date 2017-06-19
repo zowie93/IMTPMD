@@ -1,5 +1,7 @@
 package imtpmd.imtpmd_stoplicht;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +40,8 @@ public class MeetingReviewFragment extends Fragment {
     private ImageView verdrietig;
     private ImageView neutraal;
     private ImageView blij;
+
+    private SharedPreferences sharedPreferences;
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,21 +84,25 @@ public class MeetingReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Bundle bundle = this.getArguments();
-        View view = inflater.inflate(R.layout.fragment_meeting_review, container, false);
+        final View view = inflater.inflate(R.layout.fragment_meeting_review, container, false);
 
-        int meeting_id = bundle.getInt("meeting_id");
+        this.sharedPreferences = this.getActivity().getSharedPreferences("imtpmd.imtpmd_stoplicht", Context.MODE_PRIVATE);
+
+        final int meeting_id = bundle.getInt("meeting_id");
 
         Meeting meeting = API.getAllMeetingById(meeting_id);
 
         TextView review_meeting_name = (TextView) view.findViewById(R.id.review_meeting_name);
         review_meeting_name.setText(meeting.getName());
 
-
         this.emotion_id = 3;
 
         this.verdrietig = (ImageView) view.findViewById(R.id.review_verdrietig);
         this.neutraal   = (ImageView) view.findViewById(R.id.review_neutraal);
         this.blij       = (ImageView) view.findViewById(R.id.review_blij);
+
+        Button annuleren = (Button) view.findViewById(R.id.review_annuleren);
+        Button versturen = (Button) view.findViewById(R.id.review_versturen);
 
         verdrietig.setOnClickListener(new View.OnClickListener() {
 
@@ -129,6 +138,20 @@ public class MeetingReviewFragment extends Fragment {
                 verdrietig.setImageResource(R.drawable.verdrietig_active);
                 neutraal.setImageResource(R.drawable.neutraal_active);
                 blij.setImageResource(R.drawable.blij);
+            }
+        });
+
+
+        versturen.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                TextView review_description = (TextView) view.findViewById(R.id.review_description);
+
+                String description = review_description.getText().toString();
+                String username    = sharedPreferences.getString("studentnumber", "Freek Vonk");
+
+                API.giveFeedback(meeting_id, emotion_id, username, description);
             }
         });
 

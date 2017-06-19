@@ -23,6 +23,8 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
+import imtpmd.imtpmd_stoplicht.API.API;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -52,25 +54,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String login_number_new = login_number.getText().toString();
 
+                API.login(login_number_new);
 
-                try {
-                    DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
-                    HttpPost httpPost = new HttpPost("http://188.226.134.236/api/user/login");
-                    List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-                    pairs.add(new BasicNameValuePair("number", login_number_new));
-                    httpPost.setEntity(new UrlEncodedFormEntity(pairs));
-                    HttpResponse httpResponse = defaultHttpClient.execute(httpPost);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("studentnumber", login_number_new);
+                editor.commit();
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("studentnumber", login_number_new);
-                    editor.commit();
-
-                    startActivity(intent);
-                }
-
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
+                startActivity(intent);
             }
         });
     }
