@@ -1,5 +1,7 @@
 package imtpmd.imtpmd_stoplicht.API;
 
+import android.util.Log;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -54,6 +56,28 @@ public class API {
         } catch (Exception e) {}
 
         return meetings;
+    }
+
+    public static Meeting getAllMeetingById(int meeting_id) {
+
+        Meeting meeting = new Meeting();
+
+        try {
+            DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet("http://188.226.134.236/api/meeting/1");
+            HttpResponse httpResponse = defaultHttpClient.execute(httpGet);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+
+            JSONObject jsonObject = new JSONObject(reader.readLine());
+
+            meeting.setName(jsonObject.getString("name"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return meeting;
     }
 
     public static ArrayList<Feedback> getFeedbackByMeetingId(int meeting_id) {

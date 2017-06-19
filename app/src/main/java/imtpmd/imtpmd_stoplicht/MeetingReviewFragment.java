@@ -1,6 +1,5 @@
 package imtpmd.imtpmd_stoplicht;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import imtpmd.imtpmd_stoplicht.API.API;
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
 
 
@@ -81,6 +82,12 @@ public class MeetingReviewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_meeting_review, container, false);
 
         int meeting_id = bundle.getInt("meeting_id");
+
+        Meeting meeting = API.getAllMeetingById(meeting_id);
+
+        TextView review_meeting_name = (TextView) view.findViewById(R.id.review_meeting_name);
+        review_meeting_name.setText(meeting.getName());
+
 
         this.emotion_id = 3;
 

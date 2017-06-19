@@ -19,6 +19,8 @@ public class Meeting implements Serializable {
         this.ending_at = ending_at;
     }
 
+    public Meeting () {}
+
     public int getId() {
         return id;
     }
