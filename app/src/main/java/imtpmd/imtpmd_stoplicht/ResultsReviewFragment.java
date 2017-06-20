@@ -129,9 +129,9 @@ public class ResultsReviewFragment extends Fragment {
 
         PieEntryLabels = new ArrayList<String>();
 
-        AddValuesToPIEENTRY(API.getFeedbackStatsByMeetingId(meeting_id));
-
-        AddValuesToPieEntryLabels();
+        FeedbackStats feedbackStats = API.getFeedbackStatsByMeetingId(meeting_id);
+        AddValuesToPIEENTRY(feedbackStats);
+        AddValuesToPieEntryLabels(feedbackStats);
 
         pieDataSet = new PieDataSet(entries, "");
 
@@ -146,14 +146,38 @@ public class ResultsReviewFragment extends Fragment {
             }
         });
 
-        pieDataSet.setColors(new int [] {
-            Color.rgb(19, 145, 128), Color.rgb(253, 166, 57), Color.rgb(252, 68, 75)
-        });
+        pieDataSet.setColors(getColors(feedbackStats));
 
         pieChart.setData(pieData);
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+
+    private int [] getColors (FeedbackStats feedbackStats) {
+
+        ArrayList<Integer> colorsList = new ArrayList<>();
+
+        if (feedbackStats.getBlij() > 0) {
+            colorsList.add(Color.rgb(19, 145, 128));
+        }
+
+        if (feedbackStats.getNeutraal() > 0) {
+            colorsList.add(Color.rgb(253, 166, 57));
+        }
+
+        if (feedbackStats.getVerdrietig() > 0) {
+            colorsList.add(Color.rgb(252, 68, 75));
+        }
+
+        int [] colors = new int[colorsList.size()];
+
+        for (Integer color: colorsList) {
+            colors[colorsList.indexOf(color)] = color;
+        }
+
+        return colors;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -199,11 +223,18 @@ public class ResultsReviewFragment extends Fragment {
         }
     }
 
-    public void AddValuesToPieEntryLabels(){
+    public void AddValuesToPieEntryLabels(FeedbackStats feedbackStats){
 
-        PieEntryLabels.add("Blij");
-        PieEntryLabels.add("Neutraal");
-        PieEntryLabels.add("Verdrietig");
+        if (feedbackStats.getBlij() > 0) {
+            PieEntryLabels.add("Blij");
+        }
 
+        if (feedbackStats.getNeutraal() > 0) {
+            PieEntryLabels.add("Neutraal");
+        }
+
+        if (feedbackStats.getVerdrietig() > 0) {
+            PieEntryLabels.add("Verdrietig");
+        }
     }
 }
