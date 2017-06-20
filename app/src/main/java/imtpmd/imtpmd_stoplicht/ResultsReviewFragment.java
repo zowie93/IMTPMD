@@ -1,6 +1,5 @@
 package imtpmd.imtpmd_stoplicht;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,26 +10,21 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 
 import imtpmd.imtpmd_stoplicht.API.API;
-import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
 import imtpmd.imtpmd_stoplicht.Adapers.ResulstsListAdapter;
 import imtpmd.imtpmd_stoplicht.Models.Feedback;
 import imtpmd.imtpmd_stoplicht.Models.FeedbackStats;
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
-
-import static android.R.attr.entries;
 
 
 /**

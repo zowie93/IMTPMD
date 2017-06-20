@@ -10,21 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import imtpmd.imtpmd_stoplicht.API.API;
 import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
-import imtpmd.imtpmd_stoplicht.Models.Date;
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
-import imtpmd.imtpmd_stoplicht.Models.User;
 
 
 /**

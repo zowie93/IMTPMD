@@ -1,6 +1,5 @@
 package imtpmd.imtpmd_stoplicht.API;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;

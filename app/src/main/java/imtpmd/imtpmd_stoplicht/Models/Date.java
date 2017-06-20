@@ -3,7 +3,6 @@ package imtpmd.imtpmd_stoplicht.Models;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class Date extends java.util.Date {
 
