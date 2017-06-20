@@ -27,6 +27,7 @@ import imtpmd.imtpmd_stoplicht.API.API;
 import imtpmd.imtpmd_stoplicht.Adapers.MeetingListAdapter;
 import imtpmd.imtpmd_stoplicht.Adapers.ResulstsListAdapter;
 import imtpmd.imtpmd_stoplicht.Models.Feedback;
+import imtpmd.imtpmd_stoplicht.Models.FeedbackStats;
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
 
 import static android.R.attr.entries;
@@ -128,7 +129,7 @@ public class ResultsReviewFragment extends Fragment {
 
         PieEntryLabels = new ArrayList<String>();
 
-        AddValuesToPIEENTRY();
+        AddValuesToPIEENTRY(API.getFeedbackStatsByMeetingId(meeting_id));
 
         AddValuesToPieEntryLabels();
 
@@ -183,11 +184,11 @@ public class ResultsReviewFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void AddValuesToPIEENTRY(){
+    public void AddValuesToPIEENTRY(FeedbackStats feedbackStats){
 
-        entries.add(new BarEntry(2, 0));
-        entries.add(new BarEntry(4, 1));
-        entries.add(new BarEntry(6, 2));
+        entries.add(new BarEntry(feedbackStats.getBlij(), 0));
+        entries.add(new BarEntry(feedbackStats.getNeutraal(), 1));
+        entries.add(new BarEntry(feedbackStats.getVerdrietig(), 2));
 
     }
 

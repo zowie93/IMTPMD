@@ -21,6 +21,7 @@ import java.util.List;
 import imtpmd.imtpmd_stoplicht.Models.Date;
 import imtpmd.imtpmd_stoplicht.Models.Emotion;
 import imtpmd.imtpmd_stoplicht.Models.Feedback;
+import imtpmd.imtpmd_stoplicht.Models.FeedbackStats;
 import imtpmd.imtpmd_stoplicht.Models.Meeting;
 import imtpmd.imtpmd_stoplicht.Models.User;
 
@@ -133,6 +134,33 @@ public class API {
         }
 
         return feedback;
+
+    }
+
+    public static FeedbackStats getFeedbackStatsByMeetingId(int meeting_id) {
+
+        FeedbackStats feedbackStats = new FeedbackStats();
+
+        try {
+            DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet("http://188.226.134.236/api/meeting/" + meeting_id);
+            HttpResponse httpResponse = defaultHttpClient.execute(httpGet);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), "UTF-8"));
+
+            JSONObject jsonObject = new JSONObject(reader.readLine());
+
+            JSONObject stats = jsonObject.getJSONObject("feedback_stats");
+
+            feedbackStats.setBlij(stats.getInt("blij"));
+            feedbackStats.setNeutraal(stats.getInt("neutraal"));
+            feedbackStats.setVerdrietig(stats.getInt("verdrietig"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return feedbackStats;
 
     }
 
