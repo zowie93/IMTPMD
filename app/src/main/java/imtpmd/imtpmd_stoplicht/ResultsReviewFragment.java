@@ -17,7 +17,9 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 
@@ -118,6 +120,9 @@ public class ResultsReviewFragment extends Fragment {
 
         pieChart = (PieChart) view.findViewById(R.id.chart);
 
+        pieChart.setDrawSliceText(false);
+        pieChart.setDescription(null);
+        pieChart.getLegend().setEnabled(false);
 
         entries = new ArrayList<>();
 
@@ -130,15 +135,21 @@ public class ResultsReviewFragment extends Fragment {
         pieDataSet = new PieDataSet(entries, "");
 
         pieData = new PieData(PieEntryLabels, pieDataSet);
+        pieData.setValueTextSize(25f);
+        pieData.setValueTextColor(Color.WHITE);
+        pieData.setValueFormatter(new ValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                return Math.round(value)+"";
+            }
+        });
 
         pieDataSet.setColors(new int [] {
             Color.rgb(19, 145, 128), Color.rgb(253, 166, 57), Color.rgb(252, 68, 75)
         });
 
         pieChart.setData(pieData);
-
-        pieChart.animateY(3000);
-
 
         // Inflate the layout for this fragment
         return view;
