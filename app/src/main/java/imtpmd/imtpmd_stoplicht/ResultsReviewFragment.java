@@ -186,10 +186,17 @@ public class ResultsReviewFragment extends Fragment {
 
     public void AddValuesToPIEENTRY(FeedbackStats feedbackStats){
 
-        entries.add(new BarEntry(feedbackStats.getBlij(), 0));
-        entries.add(new BarEntry(feedbackStats.getNeutraal(), 1));
-        entries.add(new BarEntry(feedbackStats.getVerdrietig(), 2));
+        if (feedbackStats.getBlij() > 0) {
+            entries.add(new BarEntry(feedbackStats.getBlij(), 0));
+        }
 
+        if (feedbackStats.getNeutraal() > 0) {
+            entries.add(new BarEntry(feedbackStats.getNeutraal(), 1));
+        }
+
+        if (feedbackStats.getVerdrietig() > 0) {
+            entries.add(new BarEntry(feedbackStats.getVerdrietig(), 2));
+        }
     }
 
     public void AddValuesToPieEntryLabels(){
